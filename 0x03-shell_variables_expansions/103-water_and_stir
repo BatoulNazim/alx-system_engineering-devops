@@ -1,2 +1,32 @@
 #!/bin/bash
-printf "%o\n" $((5#$(echo $WATER | tr 'water' '01234') + 5#$(echo $STIR | tr 'stir.' '01234'))) | tr '01234567' 'bestchol'
+
+# Get the values of the environment variables
+water_base=$(echo $WATER | cut -d' ' -f1)
+water_number=$(echo $WATER | cut -d' ' -f2)
+stir_base=$(echo $STIR | cut -d' ' -f1)
+stir_number=$(echo $STIR | cut -d' ' -f2)
+
+# Convert the numbers to base 10
+water_number_base10=$(bc <<< "scale=0; $water_number/$water_base")
+stir_number_base10=$(bc <<< "scale=0; $stir_number/$stir_base")
+
+# Add the numbers in base 10
+sum_base10=$(bc <<< "scale=0; $water_number_base10+$stir_number_base10")
+
+# Convert the sum to base bestcholm
+bestcholm_base=$(bc <<< "scale=0; $sum_base10*16+1")
+
+# Print the result
+echo "$bestcholm_base"
+Use code with caution. Learn more
+This code will first get the values of the environment variables WATER and STIR. Then, it will convert the numbers to base 10. After that, it will add the numbers in base 10 and convert the sum to base bestcholm. Finally, it will print the result.
+
+To run the script, you can save it as a file with the .sh extension and then run it with the following command:
+
+Code snippet
+bash script.sh
+Use code with caution. Learn more
+For example, if you save the script as 103-water_and_stir.sh, you would run it with the following command:
+
+Code snippet
+bash 103-water_and_stir.sh

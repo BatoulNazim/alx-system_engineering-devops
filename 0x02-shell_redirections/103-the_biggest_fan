@@ -1,2 +1,2 @@
 #!/bin/bash
-tail -n +2 | cut -f -1 | sort -k 1 | uniq -C | sort -rnk 1 | head -n 11 | rev | cut -d ' ' -f -1 | rev
+while read -r line; do fields=( $(echo "$line" | tr '\t' ' ') ) host="$fields[0]" host_counts[$host] += 1 done < "$1" sorted_hosts=$(for host in "${!host_counts[@]}"; do echo "${host} ${host_counts[$host]}" done | sort -n -k 2 -r | head -n 11) echo "$sorted_hosts"
